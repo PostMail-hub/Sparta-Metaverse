@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class MG_PlayerController : MonoBehaviour
@@ -36,8 +37,7 @@ public class MG_PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Score")
         {
-            Debug.Log("Á¡¼ö 1Á¡");
-            gameManager.AddScore(1);
+            MGScoreManager.Instance.AddScore(1);
         }
     }
 

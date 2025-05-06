@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,27 +18,33 @@ public class GameManager : MonoBehaviour
         get { return gameManager; }
     }
 
-    private int currentScore = 0;
-
     private void Awake()
     {
         gameManager = this;
     }
+    void Start()
+    {
+        MGScoreManager.Instance.ResetScore();
+    }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
+        uiManager.SetRestart();
+        PlayerPrefs.SetInt("LastScore", MGScoreManager.Instance.currentScore);
+        PlayerPrefs.Save();
+        MGScoreManager.Instance.SaveHighScore();
+        MGScoreManager.Instance.UpdateScore(MGScoreManager.Instance.currentScore);
     }
 
     public void RestartGame()
     {
-        Debug.Log("리스타트");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void AddScore(int score)
+
+    public void EndMiniGame()
     {
-        Debug.Log("Score: " + currentScore);
-        currentScore += score;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 
     public void Damage()
@@ -60,8 +67,15 @@ public class GameManager : MonoBehaviour
             uiManager.Health3();
             animator.Die();
             playerController.PlayerSpeed = 0;
-            Destroy(playerController, 1.5f);
+
+            StartCoroutine(GameOverDelay());
         }
+    }
+
+    private IEnumerator GameOverDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameOver();
     }
 
 }
