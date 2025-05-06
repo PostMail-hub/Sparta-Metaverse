@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Npc
+  - Ground
+  - BackGround
+  - FakeFloor
+  - Obstacle
+  - Score
+  - Damage
   layers:
   - Default
   - TransparentFX
