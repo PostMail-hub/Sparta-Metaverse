@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class N_ElfEvent : MonoBehaviour
 {
 
-    private bool isTalk = false;
-    private bool isPlayerInRange = false;
+    private bool IsTalk = false;
+    private bool IsPlayerInRange = false;
 
     public GameObject KeyPanel; // 상호작용 하겠냐고 묻는 판넬
     public Text KeyText;
@@ -17,14 +17,14 @@ public class N_ElfEvent : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInRange && !isTalk)
+        if (IsPlayerInRange && !IsTalk)
         {
             KeyPanel.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.E))
             {
                 KeyPanel.SetActive(false);
-                isTalk = true;
+                IsTalk = true;
                 StartCoroutine(ShowTalkMessage());
                 StartCoroutine(ResetTalkOpenState());
             }
@@ -35,7 +35,7 @@ public class N_ElfEvent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRange = true;
+            IsPlayerInRange = true;
         }
     }
 
@@ -44,7 +44,7 @@ public class N_ElfEvent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             KeyPanel.SetActive(false);
-            isPlayerInRange = false;
+            IsPlayerInRange = false;
         }
     }
 
@@ -60,6 +60,6 @@ public class N_ElfEvent : MonoBehaviour
     IEnumerator ResetTalkOpenState()
     {
         yield return new WaitForSeconds(2.5f);
-        isTalk = false;
+        IsTalk = false;
     }
 }

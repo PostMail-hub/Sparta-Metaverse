@@ -9,8 +9,8 @@ public class O_BoxEvent : MonoBehaviour
 
     private AnimationHandler animationHandler;
 
-    private bool isOpened = false;
-    private bool isPlayerInRange = false;
+    private bool IsOpened = false;
+    private bool IsPlayerInRange = false;
 
     public GameObject KeyPanel; // 상호작용 하겠냐고 묻는 판넬
     public Text KeyText;
@@ -33,7 +33,7 @@ public class O_BoxEvent : MonoBehaviour
             animationHandler.IsBoxOpen();
         }
 
-        if (isPlayerInRange && !isOpened)
+        if (IsPlayerInRange && !IsOpened)
         {
 
             KeyPanel.SetActive(true);
@@ -41,7 +41,7 @@ public class O_BoxEvent : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 KeyPanel.SetActive(false);
-                isOpened = true;
+                IsOpened = true;
                 animationHandler.IsBoxOpen();
                 StartCoroutine(ShowBoxMessage());
                 StartCoroutine(ResetBoxOpenState());
@@ -54,7 +54,7 @@ public class O_BoxEvent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRange = true;
+            IsPlayerInRange = true;
         }
     }
 
@@ -63,7 +63,7 @@ public class O_BoxEvent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             KeyPanel.SetActive(false);
-            isPlayerInRange = false;
+            IsPlayerInRange = false;
         }
     }
 
@@ -79,7 +79,7 @@ public class O_BoxEvent : MonoBehaviour
     IEnumerator ResetBoxOpenState()
     {
         yield return new WaitForSeconds(2.5f);
-        isOpened = false;
+        IsOpened = false;
         animationHandler.IsBoxClose();
     }
 }
