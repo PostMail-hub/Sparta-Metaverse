@@ -9,7 +9,8 @@ public class LoadScore : MonoBehaviour
     public TextMeshProUGUI bestscoreText;
 
     void Start()
-    { 
+    {
+        ScoreRenewal();
     }
 
     public void ScoreRenewal()
@@ -17,10 +18,8 @@ public class LoadScore : MonoBehaviour
         int lastScore = PlayerPrefs.GetInt("LastScore", 0);
         int bestScore = PlayerPrefs.GetInt("HighScore", 0);
 
-        if (lastScore != null)
-            lastScoreText.text = lastScore.ToString();
-
-        if (bestScore != null)
-            bestscoreText.text = bestScore.ToString();
+        lastScoreText.text = lastScore.ToString();
+        bestscoreText.text = bestScore.ToString();
     }
 }
+

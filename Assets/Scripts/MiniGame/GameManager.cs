@@ -22,23 +22,22 @@ public class GameManager : MonoBehaviour
     {
         gameManager = this;
     }
-    void Start()
-    {
-        MGScoreManager.Instance.ResetScore();
-    }
 
     public void GameOver()
     {
+        MGScoreManager.Instance.SaveAllScores();
         uiManager.SetRestart();
-        PlayerPrefs.SetInt("LastScore", MGScoreManager.Instance.currentScore);
-        PlayerPrefs.Save();
-        MGScoreManager.Instance.SaveHighScore();
-        MGScoreManager.Instance.UpdateScore(MGScoreManager.Instance.currentScore);
+    }
+
+    public void StartGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MiniGameScene");
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MGScoreManager.Instance.ResetScore();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MiniGameScene");
     }
 
 
@@ -74,6 +73,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOverDelay()
     {
+        int finalScore = MGScoreManager.Instance.currentScore;
+
         yield return new WaitForSeconds(1.5f);
         GameOver();
     }

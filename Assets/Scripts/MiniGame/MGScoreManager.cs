@@ -34,6 +34,19 @@ public class MGScoreManager : MonoBehaviour
         }
     }
 
+    public void SaveAllScores()
+    {
+        PlayerPrefs.SetInt("LastScore", currentScore);
+
+        if (currentScore > bestScore)
+        {
+            bestScore = currentScore;
+            PlayerPrefs.SetInt("HighScore", bestScore);
+        }
+
+        PlayerPrefs.Save();
+    }
+
     public void AddScore(int score)
     {
         currentScore += score;
@@ -48,13 +61,8 @@ public class MGScoreManager : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        if (scoreText != null)
-            scoreText.text = score.ToString();
-
-        bestScore = PlayerPrefs.GetInt("HighScore", 0);
-
-        if (bestscoreText != null)
-            bestscoreText.text = bestScore.ToString();
+        scoreText.text = score.ToString();
+        bestscoreText.text = bestScore.ToString();
     }
 
     public void ResetScore()
