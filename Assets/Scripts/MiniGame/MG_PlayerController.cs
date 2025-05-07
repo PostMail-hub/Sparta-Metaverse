@@ -4,6 +4,8 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class MG_PlayerController : MonoBehaviour
 {
+    public AudioClip PlayerJumpClip;
+
     GameManager gameManager = null;
 
     public int PlayerHp = 3; // 유저의 생명력
@@ -49,6 +51,8 @@ public class MG_PlayerController : MonoBehaviour
         }
         if (JumpNum > 0 && Input.GetKeyDown(KeyCode.Space))
         {
+                if (PlayerJumpClip != null)
+                    SoundManager.PlayClip(PlayerJumpClip);
             plyerrb.velocity = new Vector2(plyerrb.velocity.x, 0f);
             plyerrb.AddForce(Vector2.up * PlayerJumpPower, ForceMode2D.Impulse);
             JumpNum--;

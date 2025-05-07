@@ -7,6 +7,10 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioClip ButtonSoundClip;
+    public AudioClip PlayerDamageClip;
+    public AudioClip PlayerDieClip;
+
     public MG_AnimationHandler animator;
     public MG_PlayerController playerController;
     public MG_UIManager uiManager;
@@ -31,18 +35,24 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        if (ButtonSoundClip != null)
+            SoundManager.PlayClip(ButtonSoundClip);
         UnityEngine.SceneManagement.SceneManager.LoadScene("MiniGameScene");
     }
 
     public void RestartGame()
     {
+        if (ButtonSoundClip != null)
+            SoundManager.PlayClip(ButtonSoundClip);
         MGScoreManager.Instance.ResetScore();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MiniGameScene");
-    }
 
+    }
 
     public void EndMiniGame()
     {
+        if (ButtonSoundClip != null)
+            SoundManager.PlayClip(ButtonSoundClip);
         UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 
@@ -53,12 +63,17 @@ public class GameManager : MonoBehaviour
             playerController.PlayerHp--;
             uiManager.Health1();
             animator.DamageOn();
+            if (PlayerDamageClip != null)
+                SoundManager.PlayClip(PlayerDamageClip);
+
         }
         else if (playerController.PlayerHp == 2)
         {
             playerController.PlayerHp--;
             uiManager.Health2();
             animator.DamageOn();
+            if (PlayerDamageClip != null)
+                SoundManager.PlayClip(PlayerDamageClip);
         }
         else if (playerController.PlayerHp == 1)
         {
@@ -66,6 +81,8 @@ public class GameManager : MonoBehaviour
             uiManager.Health3();
             animator.Die();
             playerController.PlayerSpeed = 0;
+            if (PlayerDieClip != null)
+                SoundManager.PlayClip(PlayerDieClip);
 
             StartCoroutine(GameOverDelay());
         }

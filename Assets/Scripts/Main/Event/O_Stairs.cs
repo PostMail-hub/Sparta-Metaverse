@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class O_Stairs : MonoBehaviour
 {
+    public AudioClip StairsSoundClip;
+
     public LoadScore loadScore;
     private bool IsTalk = false;
     private bool IsPlayerInRange = false;
@@ -22,6 +24,9 @@ public class O_Stairs : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                if (StairsSoundClip != null)
+                    StartCoroutine(PlayAudioRepeatedly());
+
                 KeyPanel.SetActive(false);
                 IsTalk = true;
                 InteractionPanel.SetActive(true);
@@ -58,4 +63,14 @@ public class O_Stairs : MonoBehaviour
             IsPlayerInRange = false;
         }
     }
+
+    private IEnumerator PlayAudioRepeatedly()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            SoundManager.PlayClip(StairsSoundClip);
+            yield return new WaitForSeconds(0.18f);
+        }
+    }
+
 }

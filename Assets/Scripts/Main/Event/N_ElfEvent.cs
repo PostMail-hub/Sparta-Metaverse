@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class N_ElfEvent : MonoBehaviour
 {
+    public AudioClip ElfSoundClip;
 
     private bool IsTalk = false;
     private bool IsPlayerInRange = false;
@@ -23,6 +24,9 @@ public class N_ElfEvent : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                if (ElfSoundClip != null)
+                    SoundManager.PlayClip(ElfSoundClip);
+
                 KeyPanel.SetActive(false);
                 IsTalk = true;
                 StartCoroutine(ShowTalkMessage());

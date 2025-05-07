@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class O_BoxEvent : MonoBehaviour
 {
+    public AudioClip BoxSoundClip;
+
     public GameObject oBox;
 
     private AnimationHandler animationHandler;
@@ -28,18 +30,15 @@ public class O_BoxEvent : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            animationHandler.IsBoxOpen();
-        }
-
         if (IsPlayerInRange && !IsOpened)
         {
-
             KeyPanel.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                if (BoxSoundClip != null)
+                    SoundManager.PlayClip(BoxSoundClip);
+
                 KeyPanel.SetActive(false);
                 IsOpened = true;
                 animationHandler.IsBoxOpen();
